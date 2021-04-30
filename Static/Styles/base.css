@@ -1,0 +1,24 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto';
+}
+.title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 16vh;
+    margin-bottom: 80px;
+    background-color: black;
+    color: white;
+    box-shadow: -9px 7px 14px -7px rgba(219,219,219,1);
+}
+.title h1{
+    font-size: 22px;
+}
+.title h5{
+    margin-top: 10px;
+    font-size: 14px;
+}
