@@ -13,8 +13,11 @@
 
 <body>
     <div class="title">
-        <h1>YearView</h1>
-        <h5>Relive &nbsp; &middot; &nbsp; Your &nbsp; &middot;  &nbsp; Year</h5>
+        <div class="site-name" style="text-align: center;">
+            <h1 style="font-size: 22px;">YearView</h1>
+            <h5 style="font-size: 14px; margin-top: 10px;">Relive &nbsp; &middot; &nbsp; Your &nbsp; &middot;  &nbsp; Year</h5>
+        </div>
+        {% block title %} {% endblock %}
     </div>
     {% block body %} {% endblock %}
 </body>

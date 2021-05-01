@@ -80,7 +80,6 @@ def check():
         return redirect(url_for('login'))
 
 
-
 @app.route('/user')
 def user():
 
@@ -89,6 +88,8 @@ def user():
         flash("Please login or create an account.")
         return redirect(url_for('login'))
 
-    return render_template('main.html')
+    user = session['user']
+
+    return render_template('main.html', name=user)
 
     

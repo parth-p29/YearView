@@ -9,6 +9,7 @@
     justify-content: center;
     padding: 20px;
     color: black;
+    background-color: white;
 }
 form{
     display: flex;

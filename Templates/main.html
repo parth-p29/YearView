@@ -1,1 +1,9 @@
 {% extends 'base.html' %}
+
+
+{% block title %}
+    <div class="h" style="display: flex; align-items: center;">
+        <p>{{name}}</p>
+        <img src="{{ url_for('static', filename='images/defaultpic.png')}}" width="30px" height="auto" style=" border: 0.5px solid black; margin-left: 8px;" />
+    </div>
+{% endblock %}
