@@ -3,7 +3,6 @@
     height: 50vh;
     margin: auto;
     box-shadow: 0px 1px 9px -1px rgba(209,209,209,1);
-
     display: flex;
     flex-direction: column; 
     align-items: center;
@@ -11,7 +10,6 @@
     padding: 20px;
     color: black;
 }
-
 form{
     display: flex;
     flex-direction: column;
@@ -20,14 +18,18 @@ form{
 #new-account{
     text-decoration: none;
 }
-
+#alert{
+    margin-bottom: 30px;
+    font-size: 20px;
+    color: rgb(122, 26, 26);
+    text-align: center;
+}
 input{
     margin: 10px 0px 10px 0px;
     width: 300px;
     height: 30px;
     font-size: 18px;
 }
-
 #login-button{
     margin: 15px 0px 30px 0px;
     width: 80px;

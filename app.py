@@ -1,4 +1,4 @@
-from flask import Flask, request, url_for, redirect, render_template
+from flask import Flask, request, url_for, redirect, render_template, flash
 from flask_pymongo import PyMongo
 
 app = Flask(__name__)
@@ -9,9 +9,24 @@ app.secret_key = 'yessir'
 @app.route('/')
 def login():
     
-    return render_template('login.html')
+    return render_template('login.html', form_text="Login to YearView", button_text="Login", action='/login')
 
-@app.route('/signup')
+@app.route('/signup', methods=['GET', 'POST'])
 def signup():
 
-    return 'hi'
+    if request.method == "POST":
+
+        username = request.form['username']
+        password = request.form['password']
+
+        if password != request.form['confirm pass']:
+ 
+            flash("Passwords don't match", 'bad')
+
+            return redirect(url_for('signup'))
+
+        flash("Account Created!", "good")
+        return redirect(url_for('login', _external=True))
+
+
+    return render_template('signup.html', form_text="Create Account", button_text="Create", action='/signup')

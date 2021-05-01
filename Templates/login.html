@@ -6,20 +6,36 @@
 
 {% block body %}
 
+    {% with message = get_flashed_messages() %}
+        {% if message %}
+            <p id='alert'>{{message[0]}}</p>
+            {% if message[1] == 'bad' %}
+                <style> #alert{color: rgb(122, 26, 26)}</style>
+            {% else %}
+                <style> #alert{color: rgb(48, 187, 66) 26)}</style>
+            {% endif %}
+        {% endif %}
+    {% endwith %}
+
     <div class="login">
 
-        <h3>Login to YearView</h3>
+        <h3>{{form_text}}</h3>
 
-        <form action='/login' method="POST">
+        <form action='{{action}}' method="POST">
             
-            {% block form %}{% endblock %}
+            {% block before %}{% endblock %}
 
-            <input type="username" name="username" placeholder="username"/>
-            <input type="password" name="username" placeholder="password"/>
-            <button type="submit" id=login-button>Login</button>
+            <input type="username" name="username" required placeholder="Username"/>
+            <input type="password" name="password" required placeholder="Password"/>
+            
+            {% block after %}{% endblock %}
 
-            <p><strong>Don't have an account?</strong> <a href="/signup" id="new-account">Sign up</a></p>
-        
+            <button type="submit" id=login-button>{{button_text}}</button>
+
+            {% if button_text == 'Login' %}
+                <p><strong>Don't have an account?</strong> <a href="/signup" id="new-account">Sign Up</a></p>
+            {% endif %}
+
         </form>
 
 
