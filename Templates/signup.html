@@ -1,9 +1,9 @@
 {% extends 'login.html' %}
 
 {% block before %}
-    <input type="text" placeholder="Full Name" required>
+    <input type="text" placeholder="Full Name" name="name" required>
 {% endblock %}
 
 {% block after %}
-    <input type="password" name="confirm pass" required placeholder="Confirm Password"/>
+    <input type="password" name="confirm pass" required placeholder="Confirm Password" minlength="8" />
 {% endblock %}

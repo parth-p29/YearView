@@ -9,10 +9,10 @@
     {% with message = get_flashed_messages() %}
         {% if message %}
             <p id='alert'>{{message[0]}}</p>
-            {% if message[1] == 'bad' %}
-                <style> #alert{color: rgb(122, 26, 26)}</style>
+            {% if message[0] == "Account Created!" %}
+                <style> #alert{color: rgb(48, 187, 66);}</style>
             {% else %}
-                <style> #alert{color: rgb(48, 187, 66) 26)}</style>
+                <style> #alert{color: rgb(122, 26, 26);}</style>
             {% endif %}
         {% endif %}
     {% endwith %}
@@ -22,23 +22,18 @@
         <h3>{{form_text}}</h3>
 
         <form action='{{action}}' method="POST">
-            
+
             {% block before %}{% endblock %}
-
-            <input type="username" name="username" required placeholder="Username"/>
-            <input type="password" name="password" required placeholder="Password"/>
-            
+            <input type="username" name="username" required placeholder="Username" minlength="5" />
+            <input type="password" name="password" required placeholder="Password" minlength="8" />
             {% block after %}{% endblock %}
-
+            
             <button type="submit" id=login-button>{{button_text}}</button>
-
+            
             {% if button_text == 'Login' %}
                 <p><strong>Don't have an account?</strong> <a href="/signup" id="new-account">Sign Up</a></p>
             {% endif %}
 
         </form>
-
-
     </div>
-
 {% endblock %}
