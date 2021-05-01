@@ -65,10 +65,21 @@ def check():
         decoded_pass = user_pass.decode('utf-8')
         
         if password == decoded_pass:
-            
-            session['user'] = user['name']
 
-    return redirect(url_for('user'))
+            session['user'] = user['name']
+            return redirect(url_for('user'))
+            
+        else:
+            
+            flash("Incorrect Password.")
+            return redirect(url_for('login'))
+    
+    else:
+
+        flash("Username not found.")
+        return redirect(url_for('login'))
+
+
 
 @app.route('/user')
 def user():
@@ -78,6 +89,6 @@ def user():
         flash("Please login or create an account.")
         return redirect(url_for('login'))
 
-    return f"Welcome {session.get('user')}"
+    return render_template('main.html')
 
     
