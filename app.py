@@ -1,19 +1,20 @@
 from flask import Flask, request, url_for, redirect, render_template, flash, session
 from flask_pymongo import PyMongo
-from user import User
 import random, string, base64
-import json
+from datetime import timedelta
+import codecs
 
 app = Flask(__name__)
 app.config['MONGO_URI'] = 'mongodb+srv://parthpatel:parth2911@shopifybackendchallange.dz8by.mongodb.net/YearView?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE'
-mongo = PyMongo()
-mongo.init_app(app) 
+mongo = PyMongo(app)
+collection = mongo.db.data
 
 app.secret_key = ''.join(random.choice(string.ascii_letters) for i in range(10))
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=60)
 
 @app.route('/')
 def login():
-    
+
     return render_template('login.html', form_text="Login to YearView", button_text="Login", action='/check')
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -21,7 +22,7 @@ def signup():
 
     if request.method == "POST":
 
-        collection = mongo.db.data
+        #collection = mongo.db.data
 
         password = request.form['password']
         username = request.form['username']
@@ -38,16 +39,19 @@ def signup():
             return redirect(url_for('signup'))
         
         else:
+
             configure_user = {
                 "name" : name,
                 "username": username,
                 "password": base64.b64encode(password.encode("utf-8")),
                 "images": []
-                # "Jan": {
+                # {
                 #     "month": ''
                 #     "name": '',
                 #     "description": '',
                 #     "category": '',
+                #     "date": '',
+                #     "key"
                 #     'url': ''
                 # }
             }
@@ -61,8 +65,6 @@ def signup():
 
 @app.route('/check', methods=["POST"])
 def check():
-
-    collection = mongo.db.data
 
     username = request.form['username']
     password = request.form['password']
@@ -78,6 +80,7 @@ def check():
 
             session['name'] = user['name']
             session['username'] = user['username'] 
+            
             return redirect(url_for('user'))
             
         else:
@@ -102,6 +105,36 @@ def user():
     name = session['name']  
 
     return render_template('main.html', name=name)
+
+@app.route('/user/add-image', methods=['POST'])
+def add_image():
+
+    if 'user_image' in request.files:
+        
+        image = request.files['user_image']
+        image_key = ''.join(random.choice(string.ascii_letters) for i in range(10))
+        image_config = {
+            "image_name": request.form['image_name'],
+            "image_description": request.form['image_description'],
+            "image_category": request.form['image_category'],
+            "image_key": image_key
+        }
+
+        collection.update_one(
+            {'username': session.get('username')},
+            {"$push" : {
+                "images": image_config
+            }}
+        )
+
+        mongo.save_file(image_key, image)
+
+        return redirect(url_for("user"))
+
+@app.route('/user/<filename>')
+def file(filename):
+    
+    return mongo.send_file(filename)
 
 @app.route('/signout')
 def signout():
