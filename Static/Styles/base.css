@@ -4,15 +4,6 @@
     padding: 0;
     font-family: 'Roboto';
 }
-body{
-    background-image: url("https://wallpapercave.com/wp/wp4932383.jpg");
-    background-color: white;
-    height: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    
-}
 .title {
     display: flex;
     align-items: center;

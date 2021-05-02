@@ -1,6 +1,8 @@
 from flask import Flask, request, url_for, redirect, render_template, flash, session
 from flask_pymongo import PyMongo
+from user import User
 import random, string, base64
+import json
 
 app = Flask(__name__)
 app.config['MONGO_URI'] = 'mongodb+srv://parthpatel:parth2911@shopifybackendchallange.dz8by.mongodb.net/YearView?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE'
@@ -39,7 +41,15 @@ def signup():
             configure_user = {
                 "name" : name,
                 "username": username,
-                "password": base64.b64encode(password.encode("utf-8"))
+                "password": base64.b64encode(password.encode("utf-8")),
+                "images": []
+                # "Jan": {
+                #     "month": ''
+                #     "name": '',
+                #     "description": '',
+                #     "category": '',
+                #     'url': ''
+                # }
             }
 
             collection.insert_one(configure_user)
@@ -66,7 +76,8 @@ def check():
         
         if password == decoded_pass:
 
-            session['user'] = user['name']
+            session['name'] = user['name']
+            session['username'] = user['username'] 
             return redirect(url_for('user'))
             
         else:
@@ -83,13 +94,17 @@ def check():
 @app.route('/user')
 def user():
 
-    if 'user' not in session:
+    if 'name' not in session:
 
         flash("Please login or create an account.")
         return redirect(url_for('login'))
 
-    user = session['user']
+    name = session['name']  
 
-    return render_template('main.html', name=user)
+    return render_template('main.html', name=name)
 
-    
+@app.route('/signout')
+def signout():
+
+    session.clear()
+    return redirect(url_for('login'))

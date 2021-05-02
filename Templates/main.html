@@ -1,9 +1,39 @@
 {% extends 'base.html' %}
 
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='Styles/main.css')}}"/>
+{% endblock %}
 
 {% block title %}
-    <div class="h" style="display: flex; align-items: center;">
-        <p>{{name}}</p>
-        <img src="{{ url_for('static', filename='images/defaultpic.png')}}" width="30px" height="auto" style=" border: 0.5px solid black; margin-left: 8px;" />
+    <div style="display: flex; align-items: center;">
+        <h5>Welcome, {{name}}!</h5>
     </div>
+{% endblock %}
+
+{% block body %}
+
+    <div class="add-pics">
+        
+        <h3>Add Pictures</h3>
+
+        <form action='' method="POST">
+
+                <input type="text" name="image_name" placeholder="Optional: Enter Name of Image" />
+                <input type="text" name="image_description" placeholder="Optional: Enter Description" />
+                <select>
+                    <option value="none" selected disabled>Select a Category</option>
+                    <option value="Personal">Personal</option>
+                    <option value="Group">Group</option>
+                    <option value="Food">Food</option>
+                    <option value="Landscape">Landscape</option>
+                    <option value="Fun">Fun</option>
+                    <option value="Other">Other</option>
+                </select>
+                <input type="file" name="user_image" style="font-size: 15px;" />
+                <button type="submit" id=add-image-button>Add</button>
+
+        </form>
+
+    </div>
+
 {% endblock %}
