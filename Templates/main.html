@@ -35,32 +35,35 @@
 
     </div>
 
-    {% if images %}
-        <div class="main" style="width: 100%; text-align: center;">
+    <div class="main" style="width: 100%; text-align: center;">
 
-            <div class="today-images" style="width: 100%; margin-top: 50px;">
+        <div class="today-images" style="width: 100%; margin-top: 50px;">
 
-                <div class="images">
-                    <div class="subtitle">
-                        <h1>Pictures Added Today</h1>
-                        <div class="filter" style="margin-top: 8px;">
-                            <h5 style="font-size: 17px;">Filter by Category: <a href="">All</a>, <a href="">Personal</a>, <a href="">Group</a>, <a href="">Food</a>, <a href="">Landscape</a>, <a href="">Fun</a>, <a href="">Other</a></h5>
-                        </div>
+            <div class="images">
+                <div class="subtitle">
+                    <h1>Pictures Added Today</h1>
+                    <div class="filter" style="margin-top: 8px;">
+                        <h5 style="font-size: 17px;">Filter by Category: <a href="/user/filter/Personal">Personal</a>, <a href="/user/filter/Group">Group</a>, <a href="/user/filter/Food">Food</a>, <a href="/user/filter/Landscape">Landscape</a>, <a href="/user/filter/Fun">Fun</a>, <a href="/user/filter/Other">Other</a>, <a href="/user/filter/All">Show All</a></h5>
                     </div>
+                </div>
 
+                {% if images %}
                     <div class="img" style="text-align: center; margin: 50px;">
                         {% for image in images %}
-                            <a href=""><img src="{{image}}" width="330px" height="380px"/></a>
+                            <a href=""><img src="{{image}}" style="margin: 2px;" width="330px" height="380px"/></a>
                         {% endfor %}
                     </div>
 
-                </div>
+                {% else %}
+                    <div class="empty" style="margin-top: 40px; display: flex; justify-content: center;">
+                        <hr style="border: 0.5px solid black; width: 10%; opacity: 0.8;">
+                    </div>
+                {% endif %}
 
             </div>
 
-            <div class="today-images">
-            </div>
         </div>
-    {% endif %}
+
+    </div>
 
 {% endblock %}

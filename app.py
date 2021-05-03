@@ -79,6 +79,7 @@ def check():
 
             session['name'] = user['name']
             session['username'] = user['username'] 
+            session['filter'] = "All"
             
             return redirect(url_for('user'))
             
@@ -92,7 +93,6 @@ def check():
         flash("Username not found.")
         return redirect(url_for('login'))
 
-
 @app.route('/user')
 def user():
 
@@ -105,10 +105,17 @@ def user():
     user = collection.find_one({'username': session.get('username')})
     curr_date = datetime.today().strftime('%Y-%m-%d')
 
-    today_image_keys = [image['image_key'] for image in user['images'] if image['day'] == curr_date]
+    today_image_keys = [image['image_key'] for image in user['images'] if image['day'] == curr_date and session.get('filter') in image['image_category'] ]
     today_images = [url_for('file', filename=key) for key in today_image_keys]
 
     return render_template('main.html', name=name, images=today_images)
+
+@app.route('/user/filter/<image_filter>')
+def filter(image_filter):
+
+    session['filter'] = image_filter
+
+    return redirect(url_for('user'))
 
 @app.route('/user/add-image', methods=['POST'])
 def add_image():
@@ -119,7 +126,7 @@ def add_image():
         image_key = ''.join(random.choice(string.ascii_letters) for i in range(10))
         image_config = {
             "image_description": request.form['image_description'],
-            "image_category": request.form['image_category'],
+            "image_category": ["All", request.form['image_category']],
             "image_key": image_key,
             "month": datetime.now().strftime('%h'),
             "day": datetime.today().strftime('%Y-%m-%d')

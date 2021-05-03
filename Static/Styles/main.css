@@ -29,13 +29,7 @@ select{
     padding: 5px;
 }
 
-/* .today-images{
-    margin: 30px 80px 60px 80px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: 20px;
-} */
-
 .filter a {
     text-decoration: none;
+    color: rgb(40, 140, 235)
 }
