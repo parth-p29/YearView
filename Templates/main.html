@@ -72,12 +72,12 @@
 
             <div class="month-block">
 
-                {% for month in months %}
+                {% for block in blocks %}
 
                     <div class="block">
-                        <a href="/user/{{month}}">
+                        <a href="/user/{{block.month}}">
                           
-                            <div class="month" style="width: 30px; height: 30px; margin: 5px;border-radius: 2px; background-color: rgb(40, 129, 255);"></div>
+                            <div class="month" style="width: 30px; height: 30px; margin: 5px;border-radius: 2px; background-color: {{block.color}};"></div>
                         </a>
                     </div>
                 {% endfor %}

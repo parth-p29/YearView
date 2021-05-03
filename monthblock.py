@@ -1,7 +1,7 @@
 
 class MonthBlock():
 
-    def __init__(self, month):
+    def __init__(self, month, items):
 
         self.month = month,
         self.block_colors = {
@@ -13,6 +13,7 @@ class MonthBlock():
             20: 'rgb(40, 129, 255)'
 
         }
+        self.color = self.get_color(items)
 
     def get_color(self, month_items):
 
@@ -28,7 +29,6 @@ class MonthBlock():
 
                 return self.block_colors[limit_items[index-1]]
 
+            elif month_items > 20:
 
-block =  MonthBlock('May')
-
-print(block.get_color(22))
+                return self.block_colors[20]

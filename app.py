@@ -22,8 +22,6 @@ def signup():
 
     if request.method == "POST":
 
-        #collection = mongo.db.data
-
         password = request.form['password']
         username = request.form['username']
         name = request.form['name']
@@ -46,13 +44,11 @@ def signup():
                 "password": base64.b64encode(password.encode("utf-8")),
                 "images": []
                 # {
-                #     "month": ''
-                #     "name": '',
+                #     "month": '',
                 #     "description": '',
                 #     "category": '',
                 #     "date": '',
                 #     "key"
-                #     'url': ''
                 # }
             }
 
@@ -96,24 +92,32 @@ def check():
 
 @app.route('/user')
 def user():
-
+    
+    #if there is no user logged in, it will send them back to login page
     if 'name' not in session:
 
         flash("Please login or create an account.")
         return redirect(url_for('login'))
 
-    name = session['name']
+    name = session.get('name')
     user = collection.find_one({'username': session.get('username')})
     curr_date = datetime.today().strftime('%Y-%m-%d')
 
+    #getting the images the user added today
     today_image_keys = [image['image_key'] for image in user['images'] if image['day'] == curr_date and session.get('filter') in image['image_category'] ]
     today_images = [url_for('file', filename=key) for key in today_image_keys]
 
-    months = ['Jan', "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-
-    blocks = [MonthBlock(month) for month in months]
+    month_images = {'Jan': 0, "Feb": 0, "Mar": 0, "Apr": 0, "May": 0, "Jun": 0, "Jul": 0, "Aug": 0, "Sep": 0, "Oct": 0, "Nov": 0, "Dec": 0}
     
-    return render_template('main.html', name=name, images=today_images, months=months, color='rgb(223, 219, 219)')
+    for image in user['images']:
+
+        if image['month'] in month_images:
+
+            month_images[image['month']] += 1
+
+    blocks = [MonthBlock(month, month_images[month]) for month in list(month_images.keys())]
+    
+    return render_template('main.html', name=name, images=today_images, blocks=blocks, color='rgb(223, 219, 219)')
 
 @app.route('/user/filter/<image_filter>')
 def filter(image_filter):
