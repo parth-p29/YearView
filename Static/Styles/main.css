@@ -1,22 +1,16 @@
 .add-pics{
     width: 30vw;
-    height: 50vh;
+    height: 48vh;
     margin: auto;
     box-shadow: 0px 1px 9px -1px rgba(209,209,209,1);
     display: flex;
     flex-direction: column; 
     align-items: center;
     justify-content: center;
-    padding: 20px;
     color: black;
     background-color: white;
 }
-input{
-    margin: 10px 0px 10px 0px;
-    width: 300px;
-    height: 30px;
-    font-size: 18px;
-}
+
 form{
     display: flex;
     flex-direction: column;
@@ -29,8 +23,19 @@ select{
     font-size: 18px;
 }
 #add-image-button{
-    margin: 15px 0px 30px 0px;
+    margin: 25px 0px 0px 0px;
     width: 80px;
     color: black;
     padding: 5px;
+}
+
+/* .today-images{
+    margin: 30px 80px 60px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 20px;
+} */
+
+.filter a {
+    text-decoration: none;
 }

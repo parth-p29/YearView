@@ -1,8 +1,7 @@
 from flask import Flask, request, url_for, redirect, render_template, flash, session
 from flask_pymongo import PyMongo
 import random, string, base64
-from datetime import timedelta
-import codecs
+from datetime import timedelta, datetime
 
 app = Flask(__name__)
 app.config['MONGO_URI'] = 'mongodb+srv://parthpatel:parth2911@shopifybackendchallange.dz8by.mongodb.net/YearView?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE'
@@ -102,22 +101,28 @@ def user():
         flash("Please login or create an account.")
         return redirect(url_for('login'))
 
-    name = session['name']  
+    name = session['name']
+    user = collection.find_one({'username': session.get('username')})
+    curr_date = datetime.today().strftime('%Y-%m-%d')
 
-    return render_template('main.html', name=name)
+    today_image_keys = [image['image_key'] for image in user['images'] if image['day'] == curr_date]
+    today_images = [url_for('file', filename=key) for key in today_image_keys]
+
+    return render_template('main.html', name=name, images=today_images)
 
 @app.route('/user/add-image', methods=['POST'])
 def add_image():
 
     if 'user_image' in request.files:
-        
+
         image = request.files['user_image']
         image_key = ''.join(random.choice(string.ascii_letters) for i in range(10))
         image_config = {
-            "image_name": request.form['image_name'],
             "image_description": request.form['image_description'],
             "image_category": request.form['image_category'],
-            "image_key": image_key
+            "image_key": image_key,
+            "month": datetime.now().strftime('%h'),
+            "day": datetime.today().strftime('%Y-%m-%d')
         }
 
         collection.update_one(

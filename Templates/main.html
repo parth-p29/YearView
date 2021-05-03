@@ -18,10 +18,10 @@
 
         <form action='/user/add-image' method="POST" enctype="multipart/form-data">
 
-                <input type="text" name="image_name" required placeholder="Enter the Name of Image" />
-                <input type="text" name="image_description" placeholder="Enter a Short Description of Image" />
+                <!-- <input type="textarea" name="image_description" placeholder="Enter a Short Description of Image" /> -->
+                <textarea type="textarea" style="resize: none; margin: 10px 0px 10px 0px; font-size: 15px;" name="image_description" rows="4" cols="50" placeholder="Enter a Description of Image"></textarea>
                 <select name="image_category" required>
-                    <option value="none" selected disabled>Select a Category</option>
+                    <option value="Other" selected disabled>Select a Category</option>
                     <option value="Personal">Personal</option>
                     <option value="Group">Group</option>
                     <option value="Food">Food</option>
@@ -29,11 +29,38 @@
                     <option value="Fun">Fun</option>
                     <option value="Other">Other</option>
                 </select>
-                <input type="file" name="user_image" accept=".png, .jpg, .jpeg" multiple="multiple" style="font-size: 15px;" required/>
+                <input type="file" name="user_image" accept=".png, .jpg, .jpeg" style="font-size: 15px; margin: 10px 0px 10px 0px;" required/>
                 <button type="submit" id=add-image-button>Add</button>
-
         </form>
 
     </div>
+
+    {% if images %}
+        <div class="main" style="width: 100%; text-align: center;">
+
+            <div class="today-images" style="width: 100%; margin-top: 50px;">
+
+                <div class="images">
+                    <div class="subtitle">
+                        <h1>Pictures Added Today</h1>
+                        <div class="filter" style="margin-top: 8px;">
+                            <h5 style="font-size: 17px;">Filter by Category: <a href="">All</a>, <a href="">Personal</a>, <a href="">Group</a>, <a href="">Food</a>, <a href="">Landscape</a>, <a href="">Fun</a>, <a href="">Other</a></h5>
+                        </div>
+                    </div>
+
+                    <div class="img" style="text-align: center; margin: 50px;">
+                        {% for image in images %}
+                            <a href=""><img src="{{image}}" width="330px" height="380px"/></a>
+                        {% endfor %}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="today-images">
+            </div>
+        </div>
+    {% endif %}
 
 {% endblock %}
