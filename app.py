@@ -108,7 +108,9 @@ def user():
     today_image_keys = [image['image_key'] for image in user['images'] if image['day'] == curr_date and session.get('filter') in image['image_category'] ]
     today_images = [url_for('file', filename=key) for key in today_image_keys]
 
-    return render_template('main.html', name=name, images=today_images)
+    months = ['Jan', "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+    return render_template('main.html', name=name, images=today_images, months=months)
 
 @app.route('/user/filter/<image_filter>')
 def filter(image_filter):
@@ -128,7 +130,7 @@ def add_image():
             "image_description": request.form['image_description'],
             "image_category": ["All", request.form['image_category']],
             "image_key": image_key,
-            "month": datetime.now().strftime('%h'),
+            "month": (datetime.now().strftime('%h'))[0:3],
             "day": datetime.today().strftime('%Y-%m-%d')
         }
 

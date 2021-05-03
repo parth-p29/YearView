@@ -43,7 +43,7 @@
                 <div class="subtitle">
                     <h1>Pictures Added Today</h1>
                     <div class="filter" style="margin-top: 8px;">
-                        <h5 style="font-size: 17px;">Filter by Category: <a href="/user/filter/Personal">Personal</a>, <a href="/user/filter/Group">Group</a>, <a href="/user/filter/Food">Food</a>, <a href="/user/filter/Landscape">Landscape</a>, <a href="/user/filter/Fun">Fun</a>, <a href="/user/filter/Other">Other</a>, <a href="/user/filter/All">Show All</a></h5>
+                        <h5 style="font-size: 17px;">Filter by Category: <a href="/user/filter/Personal">Personal,</a> <a href="/user/filter/Group">Group,</a> <a href="/user/filter/Food">Food,</a> <a href="/user/filter/Landscape">Landscape,</a> <a href="/user/filter/Fun">Fun,</a> <a href="/user/filter/Other">Other,</a> <a href="/user/filter/All">Show All</a></h5>
                     </div>
                 </div>
 
@@ -59,6 +59,28 @@
                         <hr style="border: 0.5px solid black; width: 10%; opacity: 0.8;">
                     </div>
                 {% endif %}
+
+            </div>
+
+        </div>
+
+        <div class="year-images" style="width: 100%; margin-top: 50px;">
+            
+            <div class="subtitle">
+                <h1>My Year</h1>
+            </div>
+
+            <div class="month-block">
+
+                {% for month in months %}
+
+                    <div class="block">
+                        <a href="/user/{{month}}">
+                          
+                            <div class="month" style="width: 25px; height: 25px; border-radius: 2px; background-color: rgb(207, 207, 207);"></div>
+                        </a>
+                    </div>
+                {% endfor %}
 
             </div>
 
