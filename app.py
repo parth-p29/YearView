@@ -1,5 +1,6 @@
 from flask import Flask, request, url_for, redirect, render_template, flash, session
 from flask_pymongo import PyMongo
+from monthblock import MonthBlock
 import random, string, base64
 from datetime import timedelta, datetime
 
@@ -110,7 +111,9 @@ def user():
 
     months = ['Jan', "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
-    return render_template('main.html', name=name, images=today_images, months=months)
+    blocks = [MonthBlock(month) for month in months]
+    
+    return render_template('main.html', name=name, images=today_images, months=months, color='rgb(223, 219, 219)')
 
 @app.route('/user/filter/<image_filter>')
 def filter(image_filter):
