@@ -18,7 +18,6 @@
 
         <form action='/user/add-image' method="POST" enctype="multipart/form-data">
 
-                <!-- <input type="textarea" name="image_description" placeholder="Enter a Short Description of Image" /> -->
                 <textarea type="textarea" style="resize: none; margin: 10px 0px 10px 0px; font-size: 15px;" name="image_description" rows="4" cols="50" placeholder="Enter a Description of Image"></textarea>
                 <select name="image_category" required>
                     <option value="Other" selected disabled>Select a Category</option>
@@ -43,42 +42,40 @@
                 <div class="subtitle">
                     <h1>Pictures Added Today</h1>
                     <div class="filter" style="margin-top: 8px;">
-                        <h5 style="font-size: 17px;">Filter by Category: <a href="/user/filter/Personal">Personal,</a> <a href="/user/filter/Group">Group,</a> <a href="/user/filter/Food">Food,</a> <a href="/user/filter/Landscape">Landscape,</a> <a href="/user/filter/Fun">Fun,</a> <a href="/user/filter/Other">Other,</a> <a href="/user/filter/All">Show All</a></h5>
+                        <h5 style="font-size: 17px;">Filter by Category: <a href="/user/{{month}}/filter/Personal">Personal,</a> <a href="/user/{{month}}/filter/Group">Group,</a> <a href="/user/{{month}}/filter/Food">Food,</a> <a href="/user/{{month}}/filter/Landscape">Landscape,</a> <a href="/user/{{month}}/filter/Fun">Fun,</a> <a href="/user/{{month}}/filter/Other">Other,</a> <a href="/user/{{month}}/filter/All">Show All</a></h5>
                     </div>
                 </div>
 
                 {% if images %}
                     <div class="img" style="text-align: center; margin: 50px;">
                         {% for image in images %}
-                            <a href=""><img src="{{image}}" style="margin: 2px;" width="330px" height="380px"/></a>
+                            <a href=""><img src="{{image}}"style="margin: 2px;" width="330px" height="380px"/></a>
                         {% endfor %}
                     </div>
-
                 {% else %}
                     <div class="empty" style="margin-top: 40px; display: flex; justify-content: center;">
                         <hr style="border: 0.5px solid black; width: 10%; opacity: 0.8;">
                     </div>
                 {% endif %}
 
+
             </div>
 
         </div>
 
-        <div class="year-images" style="width: 100%; margin-top: 50px;">
+        <div class="year-images" style="width: 100%; margin-top: 100px;">
             
             <div class="subtitle">
-                <h1>My Year</h1>
+                <h1>My Year in Photos</h1>
             </div>
 
-            <div class="month-block">
+            <div class="month-block" style="display:flex; justify-content: center;">
 
                 {% for block in blocks %}
 
-                    <div class="block">
-                        <a href="/user/{{block.month}}">
-                          
-                            <div class="month" style="width: 30px; height: 30px; margin: 5px;border-radius: 2px; background-color: {{block.color}};"></div>
-                        </a>
+                    <div class="block" style="margin: 30px 10px 40px 10px;">
+                        <h4 style="color: rgb(70, 70, 70);;">{{block.month[0]}}</h4>
+                        <a href="/user/{{block.month[0]}}" style="margin-top: 50px; text-decoration: none;"><div class="month" style="width: 50px; height: 50px; margin: 5px;border-radius: 2px; background-color: {{block.color}};"></div></a>
                     </div>
                 {% endfor %}
 

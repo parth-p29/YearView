@@ -7,15 +7,10 @@ import random, string, base64
 from datetime import timedelta, datetime
 
 app = Flask(__name__)
-# #app.config['MONGO_URI'] = 'mongodb+srv://parthpatel:parth2911@shopifybackendchallange.dz8by.mongodb.net/YearView?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE'
-# app.config['MONGO_URI'] = 'mongodb://admin:admin@127.0.0.1:27017/YearView?authSource=admin&connect=false'
+
 app.config['MONGO_URI'] = 'mongodb+srv://parth:parth2911@cluster0.l2pej.mongodb.net/yearview?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE'
 mongo = PyMongo(app)
 collection = mongo.db.data
-
-# mongo_cluster = MongoClient('mongodb+srv://parth:parth2911@cluster0.l2pej.mongodb.net/myFirstDatabase?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE') 
-# mongo_db = mongo_cluster['yearview']
-# collection = mongo_db['data']
 
 app.secret_key = ''.join(random.choice(string.ascii_letters) for i in range(10))
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=60)
@@ -107,25 +102,40 @@ def user():
         flash("Please login or create an account.")
         return redirect(url_for('login'))
 
-    name = session.get('name')
-    user = collection.find_one({'username': session.get('username')})
+    user = collection.find_one({"username": session.get('username')})
     curr_date = datetime.today().strftime('%Y-%m-%d')
 
     #getting the images the user added today
     today_image_keys = [image['image_key'] for image in user['images'] if image['day'] == curr_date and session.get('filter') in image['image_category'] ]
     today_images = [url_for('file', filename=key) for key in today_image_keys]
 
-    month_images = {'Jan': 0, "Feb": 0, "Mar": 0, "Apr": 0, "May": 0, "Jun": 0, "Jul": 0, "Aug": 0, "Sep": 0, "Oct": 0, "Nov": 0, "Dec": 0}
+    month_image_count = {'Jan': 0, "Feb": 0, "Mar": 0, "Apr": 0, "May": 0, "Jun": 0, "Jul": 0, "Aug": 0, "Sep": 0, "Oct": 0, "Nov": 0, "Dec": 0}
     
     for image in user['images']:
 
-        if image['month'] in month_images:
+        if image['month'] in month_image_count:
 
-            month_images[image['month']] += 1
+            month_image_count[image['month']] += 1
 
-    blocks = [MonthBlock(month, month_images[month]) for month in list(month_images.keys())]
+    blocks = [MonthBlock(month, month_image_count[month]) for month in list(month_image_count.keys())]
     
-    return render_template('main.html', name=name, images=today_images, blocks=blocks, color='rgb(223, 219, 219)')
+    return render_template('main.html', name=session.get('name'), images=today_images, blocks=blocks)
+
+@app.route('/user/<month>')
+def year(month):
+
+    if 'name' not in session:
+
+        flash("Please login or create an account.")
+        return redirect(url_for('login'))
+
+    user = collection.find_one({'username': session.get('username')})
+
+    month_keys = [image['image_key'] for image in user['images'] if image['month'] == month and session.get('filter') in image['image_category'] ]
+    month_images = [url_for('file', filename=key) for key in month_keys]
+
+    return render_template('month.html', name=session.get('name'), images=month_images, month=month)
+
 
 @app.route('/user/filter/<image_filter>')
 def filter(image_filter):
@@ -133,6 +143,13 @@ def filter(image_filter):
     session['filter'] = image_filter
 
     return redirect(url_for('user'))
+
+@app.route('/user/<month>/filter/<image_filter>')
+def month_filter(month, image_filter):
+
+    session['filter'] = image_filter
+
+    return redirect(f'http://localhost:5000/user/{month}')
 
 @app.route('/user/add-image', methods=['POST'])
 def add_image():
@@ -165,6 +182,16 @@ def file(filename):
     
     return mongo.send_file(filename)
 
+@app.route('/user/test')
+def test():
+
+    user = collection.find_one({"username": session.get('username')})
+    url = url_for('file', filename=user['images'][0]['image_key'])
+    return f'''
+    <h1>{url}</h1>
+    <img src='{url}' />
+
+    '''
 @app.route('/signout')
 def signout():
 

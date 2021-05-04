@@ -31,5 +31,10 @@ select{
 
 .filter a {
     text-decoration: none;
-    color: rgb(40, 140, 235)
+    color: rgb(40, 140, 235);
+}
+
+.month-block{
+    display: flex;
+    justify-content: center;
 }

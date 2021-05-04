@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='Styles/main.css')}}"/>
+{% endblock %}
+
+{% block title %}
+    <div style="display: flex; align-items: center;">
+        <h5>Welcome, {{name}}!</h5>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="main" style="width: 100%; text-align: center;">
+
+        <div class="today-images" style="width: 100%; margin-top: 50px;">
+
+            <div class="images">
+                <div class="subtitle">
+                    <h1>Pictures From {{month}}</h1>
+                    <div class="filter" style="margin-top: 8px;">
+                        <h5 style="font-size: 17px;">Filter by Category: <a href="/user/{{month}}/filter/Personal">Personal,</a> <a href="/user/{{month}}/filter/Group">Group,</a> <a href="/user/{{month}}/filter/Food">Food,</a> <a href="/user/{{month}}/filter/Landscape">Landscape,</a> <a href="/user/{{month}}/filter/Fun">Fun,</a> <a href="/user/{{month}}/filter/Other">Other,</a> <a href="/user/{{month}}/filter/All">Show All</a></h5>
+                    </div>
+                </div>
+
+                {% if images %}
+                    <div class="img" style="text-align: center; margin: 50px;">
+                        {% for image in images %}
+                            <a href="" ><img src="{{image}}" style="margin: 2px;" width="330px" height="380px"/></a>
+                        {% endfor %}
+                    </div>
+
+                {% else %}
+                    <div class="empty" style="margin-top: 40px; display: flex; justify-content: center;">
+                        <hr style="border: 0.5px solid black; width: 10%; opacity: 0.8;">
+                    </div>
+                {% endif %}
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
