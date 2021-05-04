@@ -1,13 +1,18 @@
 from flask import Flask, request, url_for, redirect, render_template, flash, session
 from flask_pymongo import PyMongo
+import pymongo
+from pymongo import MongoClient
 from monthblock import MonthBlock
 import random, string, base64
 from datetime import timedelta, datetime
 
 app = Flask(__name__)
-app.config['MONGO_URI'] = 'mongodb+srv://parthpatel:parth2911@shopifybackendchallange.dz8by.mongodb.net/YearView?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE'
-mongo = PyMongo(app)
-collection = mongo.db.data
+# #app.config['MONGO_URI'] = 'mongodb+srv://parthpatel:parth2911@shopifybackendchallange.dz8by.mongodb.net/YearView?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE'
+# app.config['MONGO_URI'] = 'mongodb://admin:admin@127.0.0.1:27017/YearView?authSource=admin&connect=false'
+
+mongo_cluster = MongoClient('mongodb+srv://parth:parth2911@cluster0.l2pej.mongodb.net/myFirstDatabase?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE') 
+mongo_db = mongo_cluster['yearview']
+collection = mongo_db['data']
 
 app.secret_key = ''.join(random.choice(string.ascii_letters) for i in range(10))
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=60)
