@@ -80,6 +80,7 @@ def check():
             session['name'] = user['name']
             session['username'] = user['username'] 
             session['filter'] = "All"
+            session['month_filter'] = "All"
             
             return redirect(url_for('user'))
             
@@ -121,7 +122,7 @@ def user():
     
     return render_template('main.html', name=session.get('name'), images=today_images, blocks=blocks)
 
-@app.route('/user/<month>')
+@app.route('/user/month/<month>')
 def year(month):
 
     if 'name' not in session:
@@ -131,7 +132,7 @@ def year(month):
 
     user = collection.find_one({'username': session.get('username')})
 
-    month_keys = [image['image_key'] for image in user['images'] if image['month'] == month and session.get('filter') in image['image_category'] ]
+    month_keys = [image['image_key'] for image in user['images'] if image['month'] == month and session.get('month_filter') in image['image_category'] ]
     month_images = [url_for('file', filename=key) for key in month_keys]
 
     return render_template('month.html', name=session.get('name'), images=month_images, month=month)
@@ -147,9 +148,9 @@ def filter(image_filter):
 @app.route('/user/<month>/filter/<image_filter>')
 def month_filter(month, image_filter):
 
-    session['filter'] = image_filter
+    session['month_filter'] = image_filter
 
-    return redirect(f'http://localhost:5000/user/{month}')
+    return redirect(f'/user/{month}')
 
 @app.route('/user/add-image', methods=['POST'])
 def add_image():
@@ -181,17 +182,7 @@ def add_image():
 def file(filename):
     
     return mongo.send_file(filename)
-
-@app.route('/user/test')
-def test():
-
-    user = collection.find_one({"username": session.get('username')})
-    url = url_for('file', filename=user['images'][0]['image_key'])
-    return f'''
-    <h1>{url}</h1>
-    <img src='{url}' />
-
-    '''
+    
 @app.route('/signout')
 def signout():
 
