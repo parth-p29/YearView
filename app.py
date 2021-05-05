@@ -110,7 +110,20 @@ def user():
     today_image_keys = [image['image_key'] for image in user['images'] if image['day'] == curr_date and session.get('filter') in image['image_category'] ]
     today_images = [url_for('file', filename=key) for key in today_image_keys]
 
-    month_image_count = {'Jan': 0, "Feb": 0, "Mar": 0, "Apr": 0, "May": 0, "Jun": 0, "Jul": 0, "Aug": 0, "Sep": 0, "Oct": 0, "Nov": 0, "Dec": 0}
+    month_image_count = {
+        'January': 0, 
+        "Febuary": 0, 
+        "March": 0, 
+        "April": 0, 
+        "May": 0, 
+        "June": 0, 
+        "July": 0, 
+        "August": 0, 
+        "September": 0, 
+        "October": 0, 
+        "November": 0, 
+        "December": 0
+    }
     
     for image in user['images']:
 
@@ -137,6 +150,20 @@ def year(month):
 
     return render_template('month.html', name=session.get('name'), images=month_images, month=month)
 
+@app.route('/user/image/info/<id>')
+def image_info(id):
+
+    if 'name' not in session:
+
+        flash("Please login or create an account.")
+        return redirect(url_for('login'))
+
+    user = collection.find_one({'username': session.get('username')})
+
+    print(id)
+
+    return redirect(url_for('user'))
+
 
 @app.route('/user/filter/<image_filter>')
 def filter(image_filter):
@@ -145,7 +172,7 @@ def filter(image_filter):
 
     return redirect(url_for('user'))
 
-@app.route('/user/<month>/filter/<image_filter>')
+@app.route('/user/<month>/<image_filter>')
 def month_filter(month, image_filter):
 
     session['month_filter'] = image_filter
@@ -163,7 +190,7 @@ def add_image():
             "image_description": request.form['image_description'],
             "image_category": ["All", request.form['image_category']],
             "image_key": image_key,
-            "month": (datetime.now().strftime('%h'))[0:3],
+            "month": (datetime.now().strftime('%h')),
             "day": datetime.today().strftime('%Y-%m-%d')
         }
 

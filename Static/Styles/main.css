@@ -38,3 +38,7 @@ select{
     display: flex;
     justify-content: center;
 }
+
+.img img:hover{
+    opacity: 0.8;
+}

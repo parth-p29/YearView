@@ -7,6 +7,7 @@
 {% block title %}
     <div style="display: flex; align-items: center;">
         <h5>Welcome, {{name}}!</h5>
+        <a href='/signout' style="text-decoration: none; color: black;"><h5 style="margin-left: 25px; padding:8px 13px 8px 13px; background-color: white;  border-radius: 20px;">Logout</h5></a>
     </div>
 {% endblock %}
 
@@ -19,7 +20,7 @@
                 <div class="subtitle">
                     <h1>Pictures From {{month}}</h1>
                     <div class="filter" style="margin-top: 8px;">
-                        <h5 style="font-size: 17px;">Filter by Category: <a href="/user/{{month}}/filter/Personal">Personal,</a> <a href="/user/{{month}}/filter/Group">Group,</a> <a href="/user/{{month}}/filter/Food">Food,</a> <a href="/user/{{month}}/filter/Landscape">Landscape,</a> <a href="/user/{{month}}/filter/Fun">Fun,</a> <a href="/user/{{month}}/filter/Other">Other,</a> <a href="/user/{{month}}/filter/All">Show All</a></h5>
+                        <h5 style="font-size: 17px;">Filter by Category: <a href="/user/{{month}}/Personal">Personal,</a> <a href="/user/{{month}}/Group">Group,</a> <a href="/user/{{month}}/Food">Food,</a> <a href="/user/{{month}}/Landscape">Landscape,</a> <a href="/user/{{month}}/Fun">Fun,</a> <a href="/user/{{month}}/Other">Other,</a> <a href="/user/{{month}}/All">Show All</a></h5>
                     </div>
                 </div>
 
@@ -37,7 +38,6 @@
                 {% endif %}
 
             </div>
-
         </div>
     </div>
 {% endblock %}
