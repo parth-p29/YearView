@@ -159,9 +159,7 @@ def image_info(id):
         return redirect(url_for('login'))
 
     user = collection.find_one({'username': session.get('username')})
-
-    print(id)
-
+    
     return redirect(url_for('user'))
 
 @app.route('/user/filter/<image_filter>')
@@ -178,29 +176,57 @@ def month_filter(month, image_filter):
 
     return redirect(f'/user/month/{month}')
 
+# @app.route('/user/add-image', methods=['POST'])
+# def add_image():
+
+#     if 'user_image' in request.files:
+
+#         image = request.files['user_image']
+#         image_key = ''.join(random.choice(string.ascii_letters) for i in range(10))
+#         image_config = {
+#             "image_description": request.form['image_description'],
+#             "image_category": ["All", request.form['image_category']],
+#             "image_key": image_key,
+#             "month": (datetime.now().strftime('%h')),
+#             "day": datetime.today().strftime('%Y-%m-%d')
+#         }
+
+#         collection.update_one(
+#             {'username': session.get('username')},
+#             {"$push" : {
+#                 "images": image_config
+#             }}
+#         )
+
+#         mongo.save_file(image_key, image)
+
+#         return redirect(url_for("user"))
+
 @app.route('/user/add-image', methods=['POST'])
 def add_image():
 
-    if 'user_image' in request.files:
+    if 'user_images' in request.files:
 
-        image = request.files['user_image']
-        image_key = ''.join(random.choice(string.ascii_letters) for i in range(10))
-        image_config = {
-            "image_description": request.form['image_description'],
-            "image_category": ["All", request.form['image_category']],
-            "image_key": image_key,
-            "month": (datetime.now().strftime('%h')),
-            "day": datetime.today().strftime('%Y-%m-%d')
-        }
+        for file in request.files.getlist('user_images'):
 
-        collection.update_one(
-            {'username': session.get('username')},
-            {"$push" : {
-                "images": image_config
-            }}
-        )
+            image = file
+            image_key = ''.join(random.choice(string.ascii_letters) for i in range(10))
+            image_config = {
+                "image_description": request.form['image_description'],
+                "image_category": ["All", request.form['image_category']],
+                "image_key": image_key,
+                "month": (datetime.now().strftime('%h')),
+                "day": datetime.today().strftime('%Y-%m-%d')
+            }
 
-        mongo.save_file(image_key, image)
+            collection.update_one(
+                {'username': session.get('username')},
+                {"$push" : {
+                    "images": image_config
+                }}
+            )
+
+            mongo.save_file(image_key, image)
 
         return redirect(url_for("user"))
 

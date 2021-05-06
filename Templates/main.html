@@ -22,7 +22,7 @@
         <form action='/user/add-image' method="POST" enctype="multipart/form-data">
                 <textarea type="textarea" style="resize: none; margin: 10px 0px 10px 0px; font-size: 15px;" name="image_description" rows="4" cols="50" placeholder="Enter a Description of Image"></textarea>
                 <select name="image_category" required>
-                    <option value="Other" selected disabled>Select a Category</option>
+                    <option value="" selected disabled>Select a Category</option>
                     <option value="Personal">Personal</option>
                     <option value="Group">Group</option>
                     <option value="Food">Food</option>
@@ -30,7 +30,7 @@
                     <option value="Fun">Fun</option>
                     <option value="Other">Other</option>
                 </select>
-                <input type="file" name="user_image" accept=".png, .jpg, .jpeg" style="font-size: 15px; margin: 10px 0px 10px 0px;" required/>
+                <input type="file" name="user_images" multiple accept=".png, .jpg, .jpeg" style="font-size: 15px; margin: 10px 0px 10px 0px;" required/>
                 <button type="submit" id=add-image-button>Add</button>
         </form>
     </div>
