@@ -1,4 +1,4 @@
-.add-pics{
+#add-pics{
     width: 30vw;
     height: 48vh;
     margin: auto;
@@ -7,8 +7,6 @@
     flex-direction: column; 
     align-items: center;
     justify-content: center;
-    color: black;
-    background-color: white;
 }
 
 form{

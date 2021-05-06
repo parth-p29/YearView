@@ -12,10 +12,8 @@
 {% endblock %}
 
 {% block body %}
-    <div class="main" style="width: 100%; text-align: center;">
-
+    <div class="main" style="width: 100%; text-align: center; margin-bottom: 50px;">
         <div class="today-images" style="width: 100%; margin-top: 50px;">
-
             <div class="images">
                 <div class="subtitle">
                     <h1>Pictures From {{month}}</h1>
@@ -33,9 +31,13 @@
 
                 {% else %}
                     <div class="empty" style="margin-top: 40px; display: flex; justify-content: center;">
-                        <hr style="border: 0.5px solid black; width: 10%; opacity: 0.8;">
+                        <h4>No Photos Added</h4>
                     </div>
                 {% endif %}
+                
+                <div style="display: flex; justify-content: center;">
+                    <a href='/user' style="text-decoration: none; color: white;"><h5 style="font-size: 15px; padding: 10px 20px 10px 20px; background-color: black;  border-radius: 20px;">Go Back</h5></a>
+                </div>
 
             </div>
         </div>

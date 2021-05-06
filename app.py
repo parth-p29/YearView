@@ -164,7 +164,6 @@ def image_info(id):
 
     return redirect(url_for('user'))
 
-
 @app.route('/user/filter/<image_filter>')
 def filter(image_filter):
 
@@ -177,7 +176,7 @@ def month_filter(month, image_filter):
 
     session['month_filter'] = image_filter
 
-    return redirect(f'/user/{month}')
+    return redirect(f'/user/month/{month}')
 
 @app.route('/user/add-image', methods=['POST'])
 def add_image():

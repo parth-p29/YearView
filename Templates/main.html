@@ -12,8 +12,11 @@
 {% endblock %}
 
 {% block body %}
-    <div class="add-pics" style="margin-bottom: 100px;">
-        
+    <div class="add-button" style="display: flex; justify-content: center; margin-bottom: 40px;">
+        <button id='button' onclick="goals();" style="font-size: 15px; padding: 10px 20px 10px 20px; color: white; background-color: black; border: 1px solid black; border-radius: 20px; cursor: pointer;">Add Pictures</button>
+    </div>
+
+    <div id="add-pics" style="margin-bottom: 80px; display: none; background-color: white; color: black;">
         <h2>Add Pictures</h2>
 
         <form action='/user/add-image' method="POST" enctype="multipart/form-data">
@@ -30,13 +33,10 @@
                 <input type="file" name="user_image" accept=".png, .jpg, .jpeg" style="font-size: 15px; margin: 10px 0px 10px 0px;" required/>
                 <button type="submit" id=add-image-button>Add</button>
         </form>
-
     </div>
 
     <div class="main" style="width: 100%; text-align: center;">
-
-        <div class="today-images" style="width: 100%; margin-bottom: 100px;">
-
+        <div class="today-images" style="width: 100%; margin-bottom: 80px;">
             <div class="images">
                 <div class="subtitle">
                     <h2>Pictures Added Today</h2>
@@ -46,7 +46,7 @@
                 </div>
 
                 {% if images %}
-                    <div class="img" style="text-align: center; margin: 50px;">
+                    <div class="img" style="text-align: center; margin: 40px;">
                         {% for image in images %}
                             <a href="/user/image/info/{{image}}"><img src="{{image}}" style="margin: 2px;" width="330px" height="380px"/></a>
                         {% endfor %}
@@ -54,20 +54,16 @@
 
                 {% else %}
                     <div class="empty" style="margin-top: 40px; display: flex; justify-content: center;">
-                        <h4>No Photos Added So Far...</h4>
+                        <h4>No Photos Added</h4>
                     </div>
                 {% endif %}
             </div>
-
         </div>
 
         <div class="year-images" style="width: 100%; margin-bottom: 50px;">
-            
             <div class="subtitle">
-                <h2>My Year in Photos</h2>
-                <h4 style="margin-top: 10px;"><span style="color: rgb(236, 236, 236);">This color</span> represents when no image has been added in a specific month</h4>
-                <h4><span style="color: rgb(225, 238, 255);">This color</span> represents when a month contains images</h4>
-                <h4>Click a month to see the images you added then</h4>
+                <h2>Your Year in Photos</h2>
+                <h5 style="margin-top: 8px; font-size: 17px;">Click a month to see the images you added then</h5>
             </div>
 
             <div class="month-block" style="display:flex; justify-content: center;">
@@ -78,8 +74,8 @@
                     </div>
                 {% endfor %}
             </div>
-
         </div>
-
     </div>
+
+    <script src="{{url_for('static', filename='JS/button.js')}}"></script>
 {% endblock %}
