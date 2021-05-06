@@ -36,7 +36,7 @@ def signup():
 
         if collection.find_one({"username": username}):
 
-            flash("Username already exists, please try another one.")
+            flash("Username already exists, please try another one")
             return redirect(url_for('signup'))
         
         else:
@@ -86,12 +86,12 @@ def check():
             
         else:
             
-            flash("Incorrect Password.")
+            flash("Incorrect Password")
             return redirect(url_for('login'))
     
     else:
 
-        flash("Username not found.")
+        flash("Username not found")
         return redirect(url_for('login'))
 
 @app.route('/user')
@@ -176,32 +176,6 @@ def month_filter(month, image_filter):
 
     return redirect(f'/user/month/{month}')
 
-# @app.route('/user/add-image', methods=['POST'])
-# def add_image():
-
-#     if 'user_image' in request.files:
-
-#         image = request.files['user_image']
-#         image_key = ''.join(random.choice(string.ascii_letters) for i in range(10))
-#         image_config = {
-#             "image_description": request.form['image_description'],
-#             "image_category": ["All", request.form['image_category']],
-#             "image_key": image_key,
-#             "month": (datetime.now().strftime('%h')),
-#             "day": datetime.today().strftime('%Y-%m-%d')
-#         }
-
-#         collection.update_one(
-#             {'username': session.get('username')},
-#             {"$push" : {
-#                 "images": image_config
-#             }}
-#         )
-
-#         mongo.save_file(image_key, image)
-
-#         return redirect(url_for("user"))
-
 @app.route('/user/add-image', methods=['POST'])
 def add_image():
 
@@ -209,7 +183,17 @@ def add_image():
 
         for file in request.files.getlist('user_images'):
 
-            image = file
+            image_type = file.filename.split('.')[1]
+
+            if image_type not in ['png', 'jpg', 'jpeg']:
+
+                flash('Please enter a .png or a .jpg/.jpeg file')
+                return redirect(url_for("user"))
+
+            user = collection.find_one({'username': session.get('username')})
+
+            used_keys =  [ for image in user['images']]
+
             image_key = ''.join(random.choice(string.ascii_letters) for i in range(10))
             image_config = {
                 "image_description": request.form['image_description'],
@@ -226,7 +210,7 @@ def add_image():
                 }}
             )
 
-            mongo.save_file(image_key, image)
+            mongo.save_file(image_key, file)
 
         return redirect(url_for("user"))
 

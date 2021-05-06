@@ -12,6 +12,12 @@
 {% endblock %}
 
 {% block body %}
+    {% with message = get_flashed_messages() %}
+        {% if message %}
+            <h5 style="color:rgb(122, 26, 26); text-align: center; margin-bottom: 30px; font-size: 17px;">{{message[0]}}</h5>
+        {% endif %}
+    {% endwith %}
+
     <div class="add-button" style="display: flex; justify-content: center; margin-bottom: 40px;">
         <button id='button' onclick="goals();" style="font-size: 15px; padding: 10px 20px 10px 20px; color: white; background-color: black; border: 1px solid black; border-radius: 20px; cursor: pointer;">Add Pictures</button>
     </div>
@@ -20,7 +26,7 @@
         <h2>Add Pictures</h2>
 
         <form action='/user/add-image' method="POST" enctype="multipart/form-data">
-                <textarea type="textarea" style="resize: none; margin: 10px 0px 10px 0px; font-size: 15px;" name="image_description" rows="4" cols="50" placeholder="Enter a Description of Image"></textarea>
+                <textarea type="textarea" style="resize: none; margin: 10px 0px 10px 0px; font-size: 15px;" name="image_description" rows="4" cols="50" placeholder="Enter a Description (Optional)"></textarea>
                 <select name="image_category" required>
                     <option value="" selected disabled>Select a Category</option>
                     <option value="Personal">Personal</option>
