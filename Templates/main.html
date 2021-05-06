@@ -53,8 +53,8 @@
 
                 {% if images %}
                     <div class="img" style="text-align: center; margin: 40px;">
-                        {% for image in images %}
-                            <a href="/user/image/info/{{image}}"><img src="{{image}}" style="margin: 2px;" width="330px" height="380px"/></a>
+                        {% for image, key in zip(images, image_keys) %}
+                            <a href="/user/image/info/{{key}}"><img src="{{image}}" style="margin: 2px;" width="330px" height="380px"/></a>
                         {% endfor %}
                     </div>
 
@@ -66,7 +66,7 @@
             </div>
         </div>
 
-        <div class="year-images" style="width: 100%; margin-bottom: 50px;">
+        <div class="year-images" style="width: 100%; margin-bottom: 50px; box-shadow: 0px 1px 9px -1px rgba(209,209,209,1); padding-top: 40px;">
             <div class="subtitle">
                 <h2>Your Year in Photos</h2>
                 <h5 style="margin-top: 8px; font-size: 17px;">Click a month to see the images you added then</h5>

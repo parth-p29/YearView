@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='Styles/main.css')}}"/>
+{% endblock %}
+
+{% block title %}
+    <div style="display: flex; align-items: center;">
+        <h5>Welcome, {{name}}!</h5>
+        <a href='/signout' style="text-decoration: none; color: black;"><h5 style="margin-left: 25px; padding:8px 13px 8px 13px; background-color: white;  border-radius: 20px;">Logout</h5></a>
+    </div>
+{% endblock %}
+
+{% block body %}
+
+    <div class="image" style="display: flex; justify-content: center;">
+        <img src="{{image}}" width="400px" height="420px"/>
+    </div>
+
+    <div class="features">
+        <!-- <h3>Image Category: {{Category}}</h3>
+        <h3>Description: {{Description}}</h3> -->
+    </div>
+
+{% endblock %}

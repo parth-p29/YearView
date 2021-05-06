@@ -9,6 +9,10 @@
     justify-content: center;
 }
 
+.year-images{
+    box-shadow: 0px 1px 9px -1px rgba(209,209,209,1);
+    padding-top: 40px;
+}
 form{
     display: flex;
     flex-direction: column;

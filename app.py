@@ -133,7 +133,7 @@ def user():
 
     blocks = [MonthBlock(month, month_image_count[month]) for month in list(month_image_count.keys())]
     
-    return render_template('main.html', name=session.get('name'), images=today_images, blocks=blocks)
+    return render_template('main.html', name=session.get('name'), images=today_images, image_keys=today_image_keys, blocks=blocks, zip=zip)
 
 @app.route('/user/month/<month>')
 def year(month):
@@ -150,17 +150,18 @@ def year(month):
 
     return render_template('month.html', name=session.get('name'), images=month_images, month=month)
 
-@app.route('/user/image/info/<id>')
-def image_info(id):
+@app.route('/user/image/info/<key>')
+def image_info(key):
 
     if 'name' not in session:
 
         flash("Please login or create an account.")
         return redirect(url_for('login'))
 
+    image = url_for('file', filename=key)
     user = collection.find_one({'username': session.get('username')})
     
-    return redirect(url_for('user'))
+    return render_template('info.html', image=image)
 
 @app.route('/user/filter/<image_filter>')
 def filter(image_filter):
@@ -183,22 +184,31 @@ def add_image():
 
         for file in request.files.getlist('user_images'):
 
-            image_type = file.filename.split('.')[1]
+            file_type = file.filename.split('.')[1]
 
-            if image_type not in ['png', 'jpg', 'jpeg']:
+            if file_type not in ['png', 'jpg', 'jpeg']:
 
                 flash('Please enter a .png or a .jpg/.jpeg file')
                 return redirect(url_for("user"))
 
             user = collection.find_one({'username': session.get('username')})
+            current_image_key = ''.join(random.choice(string.ascii_letters) for i in range(10))
 
-            used_keys =  [ for image in user['images']]
+            if len(user['images']) > 0:
+                
+                used_keys =  [image['image_key'] for image in user['images']]
 
-            image_key = ''.join(random.choice(string.ascii_letters) for i in range(10))
+                for key_index in range(len(used_keys)):
+
+                    if current_image_key == used_keys[key_index]:
+
+                        current_image_key = ''.join(random.choice(string.ascii_letters) for i in range(10))
+                        key_index = 0
+
             image_config = {
                 "image_description": request.form['image_description'],
                 "image_category": ["All", request.form['image_category']],
-                "image_key": image_key,
+                "image_key": current_image_key,
                 "month": (datetime.now().strftime('%h')),
                 "day": datetime.today().strftime('%Y-%m-%d')
             }
@@ -210,7 +220,7 @@ def add_image():
                 }}
             )
 
-            mongo.save_file(image_key, file)
+            mongo.save_file(current_image_key, file)
 
         return redirect(url_for("user"))
 
