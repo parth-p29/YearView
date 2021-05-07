@@ -7,19 +7,21 @@
 {% block title %}
     <div style="display: flex; align-items: center;">
         <h5>Welcome, {{name}}!</h5>
-        <a href='/signout' style="text-decoration: none; color: black;"><h5 style="margin-left: 25px; padding:8px 13px 8px 13px; background-color: white;  border-radius: 20px;">Logout</h5></a>
+        <a href='/signout' style="text-decoration: none; color: black;"><h5 id='signout'>Logout</h5></a>
     </div>
 {% endblock %}
 
 {% block body %}
-
     <div class="image" style="display: flex; justify-content: center;">
         <img src="{{image}}" width="400px" height="420px"/>
     </div>
 
-    <div class="features">
-        <!-- <h3>Image Category: {{Category}}</h3>
-        <h3>Description: {{Description}}</h3> -->
+    <div class="meta-features" style="display: flex; align-items: center; flex-direction: column; margin-top: 20px;">
+        <p>Image Category: {{category}}</h3>
+        <p style="margin-top: 10px;">Description: {{desc}}</h3>
     </div>
 
+    <div class="delete" style="display: flex; justify-content: center; margin-top: 20px;">
+        <a href='/user/image/delete/{{key}}' id="del">Delete Image</a>
+    </div>
 {% endblock %}

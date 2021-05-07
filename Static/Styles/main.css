@@ -56,3 +56,11 @@ select{
 #go-back{
     font-size: 15px; padding: 10px 20px 10px 20px; background-color: black;  border-radius: 20px;
 }
+.img img{
+    margin: 2px;
+    width: 330px;
+    height: 380px;
+}
+#del{
+    color: white; background-color: rgb(212, 40, 40); padding: 10px 20px 10px 20px; border-radius: 20px; text-decoration: none; 
+}
