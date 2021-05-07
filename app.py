@@ -9,6 +9,7 @@ from datetime import timedelta, datetime
 app = Flask(__name__)
 
 app.config['MONGO_URI'] = 'mongodb+srv://parth:parth2911@cluster0.l2pej.mongodb.net/yearview?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE'
+
 mongo = PyMongo(app)
 collection = mongo.db.data
 
