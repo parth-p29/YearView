@@ -24,8 +24,8 @@
 
                 {% if images %}
                     <div class="img" style="text-align: center; margin: 50px;">
-                        {% for image in images %}
-                            <a href=""><img src="{{image}}"/></a>
+                        {% for image, key in zip(images, keys) %}
+                            <a href="/user/image/info/{{key}}"><img src="{{image}}"/></a>
                         {% endfor %}
                     </div>
 

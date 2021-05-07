@@ -156,7 +156,7 @@ def year(month):
     month_keys = [image['image_key'] for image in user['images'] if image['month'] == month and session.get('month_filter') in image['image_category'] ]
     month_images = [url_for('file', filename=key) for key in month_keys]
 
-    return render_template('month.html', name=session.get('name'), images=month_images, month=month)
+    return render_template('month.html', name=session.get('name'), images=month_images, keys=month_keys, month=month, zip=zip)
 
 @app.route('/user/image/info/<key>')
 def image_info(key):

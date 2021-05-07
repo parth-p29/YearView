@@ -6,6 +6,7 @@
 }
 .title {
     display: flex;
+    width: 100%;
     align-items: center;
     justify-content: space-around;
     height: 16vh;

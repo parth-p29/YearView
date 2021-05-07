@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='Styles/base.css')}}"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
-    <title>Yearview</title>
-    {% block head %}{% endblock %}
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='Styles/base.css')}}"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+        <title>Yearview</title>
+        {% block head %}{% endblock %}
+    </head>
 
-<body>
-    <div class="title">
-        <div class="site-name" style="text-align: center;">
-            <h1 style="font-size: 22px;">YearView</h1>
-            <h5 style="font-size: 14px; margin-top: 10px;">Relive &nbsp; &middot; &nbsp; Your &nbsp; &middot;  &nbsp; Year</h5>
+    <body>
+        <div class="title">
+            <div class="site-name" style="text-align: center;">
+                <h1 style="font-size: 22px;">YearView</h1>
+                <h5 style="font-size: 14px; margin-top: 10px;">Relive &nbsp; &middot; &nbsp; Your &nbsp; &middot;  &nbsp; Year</h5>
+            </div>
+            {% block title %} {% endblock %}
         </div>
-        {% block title %} {% endblock %}
-    </div>
-    {% block body %} {% endblock %}
-</body>
+        {% block body %} {% endblock %}
+    </body>
 </html>

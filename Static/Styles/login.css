@@ -33,3 +33,9 @@ input{
     color: black;
     padding: 5px;
 }
+
+@media (max-width: 1200px){
+    .login{
+        box-shadow: none;
+    }
+}

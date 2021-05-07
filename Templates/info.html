@@ -17,11 +17,12 @@
     </div>
 
     <div class="meta-features" style="display: flex; align-items: center; flex-direction: column; margin-top: 20px;">
-        <p>Image Category: {{category}}</h3>
-        <p style="margin-top: 10px;">Description: {{desc}}</h3>
+        <p>Image Category: {{category}}</p>
+        <p style="margin-top: 10px;">Date Added: {{day}}</p>
+        <p style="margin-top: 10px;">Description: {{desc}}</p>
     </div>
 
-    <div class="delete" style="display: flex; justify-content: center; margin-top: 20px;">
+    <div class="delete" style="display: flex; justify-content: center; margin-top: 20px; margin-bottom: 30px;">
         <a href='/user/image/delete/{{key}}' id="del">Delete Image</a>
     </div>
 {% endblock %}

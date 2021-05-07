@@ -11,7 +11,7 @@
     margin-bottom: 50px;
 }
 .year-images{
-    width: 100%; margin-top: 100px; margin-bottom: 50px; box-shadow: 0px 1px 9px -1px rgba(209,209,209,1); padding-top: 40px;
+    margin-top: 100px; margin-bottom: 50px; box-shadow: 0px 1px 9px -1px rgba(209,209,209,1); padding-top: 40px;
 }
 form{
     display: flex;
@@ -63,4 +63,12 @@ select{
 }
 #del{
     color: white; background-color: rgb(212, 40, 40); padding: 10px 20px 10px 20px; border-radius: 20px; text-decoration: none; 
+}
+@media (max-width: 960px){
+    .year-images{
+        box-shadow: none;
+    }
+    #add-pics{
+        box-shadow: none;
+    }
 }
