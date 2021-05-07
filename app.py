@@ -14,7 +14,7 @@ app.config['MONGO_URI'] = os.getenv('MONGODB_URI')
 mongo = PyMongo(app)
 collection = mongo.db.data
 #heroku config:set MONGODB_URI="mongodb+srv://parth:parth2911@cluster0.l2pej.mongodb.net/yearview?retryWrites=false&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE"
-
+#heroku config:set MONGODB_URI="mongodb+srv://parth:parth2911@cluster0.l2pej.mongodb.net/yearview?retryWrites=false&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE"
 app.secret_key = ''.join(random.choice(string.ascii_letters) for i in range(10))
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=60)
 
