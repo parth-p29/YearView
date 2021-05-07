@@ -5,10 +5,12 @@ from pymongo import MongoClient
 from monthblock import MonthBlock
 import random, string, base64
 from datetime import timedelta, datetime
+import os
 
 app = Flask(__name__)
 
-app.config['MONGO_URI'] = 'mongodb+srv://parth:parth2911@cluster0.l2pej.mongodb.net/yearview?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE'
+#app.config['MONGO_URI'] = 'mongodb+srv://parth:parth2911@cluster0.l2pej.mongodb.net/yearview?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE'
+app.config['MONGO_URI'] = os.environ['MONGODB_URI']
 
 mongo = PyMongo(app)
 collection = mongo.db.data
