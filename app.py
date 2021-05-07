@@ -9,8 +9,8 @@ import os
 
 app = Flask(__name__)
 
-#app.config['MONGO_URI'] = 'mongodb+srv://parth:parth2911@cluster0.l2pej.mongodb.net/yearview?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE'
-app.config['MONGO_URI'] = os.getenv('MONGODB_URI')
+app.config['MONGO_URI'] = 'mongodb+srv://parth:parth2911@cluster0.l2pej.mongodb.net/yearview?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE'
+#app.config['MONGO_URI'] = os.getenv('MONGODB_URI')
 mongo = PyMongo(app)
 collection = mongo.db.data
 
@@ -286,3 +286,6 @@ def signout():
 
     session.clear()
     return redirect(url_for('login'))
+
+if __name__ == "__main__":
+    app.run()
