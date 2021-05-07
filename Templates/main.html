@@ -7,22 +7,22 @@
 {% block title %}
     <div style="display: flex; align-items: center;">
         <h5>Welcome, {{name}}!</h5>
-        <a href='/signout' style="text-decoration: none; color: black;"><h5 style="margin-left: 25px; padding:8px 13px 8px 13px; background-color: white;  border-radius: 20px;">Logout</h5></a>
+        <a href='/signout' style="text-decoration: none; color: black;"><h5 id='signout'>Logout</h5></a>
     </div>
 {% endblock %}
 
 {% block body %}
     {% with message = get_flashed_messages() %}
         {% if message %}
-            <h5 style="color:rgb(122, 26, 26); text-align: center; margin-bottom: 30px; font-size: 17px;">{{message[0]}}</h5>
+            <h5 id='alert'>{{message[0]}}</h5>
         {% endif %}
     {% endwith %}
 
     <div class="add-button" style="display: flex; justify-content: center; margin-bottom: 40px;">
-        <button id='button' onclick="goals();" style="font-size: 15px; padding: 10px 20px 10px 20px; color: white; background-color: black; border: 1px solid black; border-radius: 20px; cursor: pointer;">Add Pictures</button>
+        <button id='button' onclick="goals();">Add Pictures</button>
     </div>
 
-    <div id="add-pics" style="margin-bottom: 80px; display: none; background-color: white; color: black;">
+    <div id="add-pics" style="display: none;">
         <h2>Add Pictures</h2>
 
         <form action='/user/add-image' method="POST" enctype="multipart/form-data">
@@ -66,17 +66,17 @@
             </div>
         </div>
 
-        <div class="year-images" style="width: 100%; margin-top: 100px; margin-bottom: 50px; box-shadow: 0px 1px 9px -1px rgba(209,209,209,1); padding-top: 40px;">
+        <div class="year-images">
             <div class="subtitle">
                 <h2>Your Year in Photos</h2>
                 <h5 style="margin-top: 8px; font-size: 17px;">Click a month to see the images you added then</h5>
             </div>
 
-            <div class="month-block" style="display:flex; justify-content: center;">
+            <div class="month-block">
                 {% for block in blocks %}
                     <div class="block" style="margin: 30px 10px 40px 10px;">
                         <h4 style="color: rgb(85, 85, 85);;">{{block.month[0][0:3]}}</h4>
-                        <a href="/user/month/{{block.month[0]}}" style="margin-top: 50px; text-decoration: none;"><div class="month" style="width: 50px; height: 50px; margin: 5px;border-radius: 2px; background-color: {{block.color}};"></div></a>
+                        <a href="/user/month/{{block.month[0]}}" style="margin-top: 50px; text-decoration: none;"><div class="month" style="background-color: {{block.color}};"></div></a>
                     </div>
                 {% endfor %}
             </div>

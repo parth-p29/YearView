@@ -7,7 +7,7 @@
 {% block title %}
     <div style="display: flex; align-items: center;">
         <h5>Welcome, {{name}}!</h5>
-        <a href='/signout' style="text-decoration: none; color: black;"><h5 style="margin-left: 25px; padding:8px 13px 8px 13px; background-color: white;  border-radius: 20px;">Logout</h5></a>
+        <a href='/signout' style="text-decoration: none; color: black;"><h5 id='signout'>Logout</h5></a>
     </div>
 {% endblock %}
 
@@ -36,7 +36,7 @@
                 {% endif %}
                 
                 <div style="display: flex; justify-content: center;">
-                    <a href='/user' style="text-decoration: none; color: white;"><h5 style="font-size: 15px; padding: 10px 20px 10px 20px; background-color: black;  border-radius: 20px;">Go Back</h5></a>
+                    <a href='/user' style="text-decoration: none; color: white;"><h5 id='go-back'>Go Back</h5></a>
                 </div>
 
             </div>
