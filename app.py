@@ -34,7 +34,11 @@ def signup():
             flash("Passwords don't match.")
             return redirect(url_for('signup'))
 
-        if collection.find_one({"username": username}):
+        if collection.find_one(
+            {
+                "username": username
+            }
+        ):
 
             flash("Username already exists, please try another one")
             return redirect(url_for('signup'))
@@ -68,7 +72,11 @@ def check():
     username = request.form['username']
     password = request.form['password']
 
-    user = collection.find_one({'username': username})
+    user = collection.find_one(
+        {
+            'username': username
+        }
+    )
 
     if user:
         
@@ -158,10 +166,27 @@ def image_info(key):
         flash("Please login or create an account.")
         return redirect(url_for('login'))
 
-    image = url_for('file', filename=key)
-    user = collection.find_one({'username': session.get('username')})
+    image_file = url_for('file', filename=key)
+
+    image_config = collection.find_one (
+        {
+            'username': session.get('username')
+        },
+
+        {
+            'images': {
+                '$elemMatch': {
+                    'image_key': key
+                }
+            }
+        }
+    ) ['images'][0]
+
+    day_added = image_config['day']
+    description = image_config['image_description']
+    category = image_config['image_category']
     
-    return render_template('info.html', image=image)
+    return render_template('info.html', image=image_file, day=day_added, desc=description, category=category)
 
 @app.route('/user/filter/<image_filter>')
 def filter(image_filter):
@@ -186,7 +211,7 @@ def add_image():
 
             file_type = file.filename.split('.')[1]
 
-            if file_type not in ['png', 'jpg', 'jpeg']:
+            if file_type.lower() not in ['png', 'jpg', 'jpeg']:
 
                 flash('Please enter a .png or a .jpg/.jpeg file')
                 return redirect(url_for("user"))
@@ -198,12 +223,9 @@ def add_image():
                 
                 used_keys =  [image['image_key'] for image in user['images']]
 
-                for key_index in range(len(used_keys)):
+                if current_image_key in used_keys:
 
-                    if current_image_key == used_keys[key_index]:
-
-                        current_image_key = ''.join(random.choice(string.ascii_letters) for i in range(10))
-                        key_index = 0
+                    current_image_key = ''.join(random.choice(string.ascii_letters) for i in range(10))
 
             image_config = {
                 "image_description": request.form['image_description'],
@@ -212,12 +234,18 @@ def add_image():
                 "month": (datetime.now().strftime('%h')),
                 "day": datetime.today().strftime('%Y-%m-%d')
             }
-
+     
             collection.update_one(
-                {'username': session.get('username')},
-                {"$push" : {
-                    "images": image_config
-                }}
+
+                {
+                    'username': session.get('username')
+                },
+
+                {
+                    "$push": {
+                        "images": image_config
+                    }
+                }
             )
 
             mongo.save_file(current_image_key, file)
