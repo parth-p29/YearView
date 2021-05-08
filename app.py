@@ -19,7 +19,7 @@ app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=60)
 @app.route('/')
 def login():
 
-    return render_template('login.html', form_text="Login to YearView", button_text="Login", action='/check')
+    return render_template('login.html', form_text="Login to YearView", button_text="Login", action='/check'), 200
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():

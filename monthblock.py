@@ -1,4 +1,3 @@
-
 class MonthBlock():
 
     def __init__(self, month, items):
