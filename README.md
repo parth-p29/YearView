@@ -40,28 +40,9 @@ Have you ever looked back and thought damn New Years was just last week, but you
 
 ## Tools
 
-- Python (Server)
-- Flask (Server)
+- Python/Flask (Server)
 - MongoDB (Server)
 - HTML/CSS/JS (Client)
-
-## Installation
-
-1. Git clone this repo onto your local (i.e copy the following into your command prompt)
-
-        git clone https://github.com/parth-p29/Shopify-Fall-2021-Backend-Dev-Challenge.git
-
-2. Run the following to install all dependencies:
-
-        pip install -r requirements.txt
-        
-3. Create an account on [MongoDB](https://www.mongodb.com/try) and make a new DB and copy the Mongo Connection String
-4. Traverse to app.py and place the connection you got into here:
-
-        app.config['MONGO_URI'] = 'YOUR CONNECTION STRING + &ssl=true&ssl_cert_reqs=CERT_NONE'
-
-5. Start the app by running "flask run" and go to [localhost:5000](http://localhost:5000/) into your browser
-6. Enjoy! 
 
 ## Usage (Examples)
 
@@ -89,9 +70,32 @@ Clicking on an image will allow you to see it's information such as: description
 
 ![Yearview (5)](https://user-images.githubusercontent.com/69891859/117580020-ce3abf80-b0c3-11eb-975f-65807c6ab53d.gif)
 
+## Installation
+
+1. Git clone this repo onto your local (i.e copy the following into your command prompt)
+
+        git clone https://github.com/parth-p29/Shopify-Fall-2021-Backend-Dev-Challenge.git
+
+2. Run the following to install all dependencies:
+
+        pip install -r requirements.txt
+        
+3. Create an account on [MongoDB](https://www.mongodb.com/try) and make a new DB and copy the Mongo Connection String
+4. Traverse to app.py and place the connection you got into here:
+
+        app.config['MONGO_URI'] = 'YOUR CONNECTION STRING + &ssl=true&ssl_cert_reqs=CERT_NONE'
+
+5. Start the app by running "flask run" and go to [localhost:5000](http://localhost:5000/) into your browser
+6. Enjoy! 
+
 ## Testing/Security
 
 Unit tests are contained within the app_tests.py and monthblock_tests.py files and for security as mentioned before, all passwords, images and delete operations are encrypted  allowing full saftey to anyone who may be in concern.
+
+## Author
+
+- Parth Patel - [parth-p29](https://github.com/parth-p29)
+
 
 
 
