@@ -1,13 +1,10 @@
 from flask import Flask, request, url_for, redirect, render_template, flash, session
 from flask_pymongo import PyMongo
-import pymongo
-from pymongo import MongoClient
 from monthblock import MonthBlock
 import random, string, base64
 from datetime import timedelta, datetime
-import os
 
-app = Flask(__name__, template_folder='templates/')
+app = Flask(__name__)
 
 app.config['MONGO_URI'] = 'mongodb+srv://parth:parth2911@cluster0.l2pej.mongodb.net/yearview?retryWrites=false&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE'
 mongo = PyMongo(app)
@@ -63,7 +60,7 @@ def signup():
             collection.insert_one(configure_user)
 
         flash("Account Created!")
-        return redirect(url_for('login'))
+        return redirect(url_for('login')), 200
 
     return render_template('signup.html', form_text="Create Account", button_text="Create", action='/signup'), 200
 
@@ -119,6 +116,7 @@ def user():
     today_image_keys = [image['image_key'] for image in user['images'] if image['day'] == curr_date and session.get('filter') in image['image_category']]
     today_images = [url_for('file', filename=key) for key in today_image_keys]
 
+    #the amount of images the user has in each month
     month_image_count = {
         'January': 0,
         "Febuary": 0,
@@ -140,6 +138,7 @@ def user():
 
             month_image_count[image['month']] += 1
 
+    #creates a block for each month which will be displayed on the user's screen
     blocks = [MonthBlock(month, month_image_count[month]) for month in list(month_image_count.keys())]
 
     return render_template('main.html', name=session.get('name'), images=today_images, image_keys=today_image_keys, blocks=blocks, zip=zip), 200
@@ -154,6 +153,7 @@ def year(month):
 
     user = collection.find_one({'username': session.get('username')})
 
+    #filters for collecting the images a user has in a specific month
     month_keys = [image['image_key'] for image in user['images'] if image['month'] == month and session.get('month_filter') in image['image_category'] ]
     month_images = [url_for('file', filename=key) for key in month_keys]
 
@@ -169,6 +169,7 @@ def image_info(key):
 
     image_file = url_for('file', filename=key)
 
+    #finds the image from the user's images in the db
     image_config = collection.find_one (
         {
             'username': session.get('username')
@@ -177,7 +178,7 @@ def image_info(key):
         {
             'images': {
                 '$elemMatch': {
-                    'image_key': key
+                    'image_key': key  #matches based on key from endpoint
                 }
             }
         }
@@ -201,7 +202,7 @@ def delete_image(key):
             '$pull': {
 
                 'images': {
-                    'image_key': key
+                    'image_key': key #deletes image based on it's key
                 }
 
             }
@@ -230,11 +231,13 @@ def add_image():
 
     if 'user_images' in request.files:
 
+        #allows the addition of multiple images at once!
         for file in request.files.getlist('user_images'):
 
             file_type = file.filename.split('.')[1]
 
-            if file_type.lower() not in ['png', 'jpg', 'jpeg']:
+            #ensures file type the user entered is a png or jpg/jpeg
+            if file_type.lower() not in ['png', 'jpg', 'jpeg']: 
 
                 flash('Please enter a .png or a .jpg/.jpeg file')
                 return redirect(url_for("user"))
@@ -242,6 +245,7 @@ def add_image():
             user = collection.find_one({'username': session.get('username')})
             current_image_key = ''.join(random.choice(string.ascii_letters) for i in range(10))
 
+            #precaution for if the random key assigned to an image is already in use (very unlikely, but have to account for everything haha)
             if len(user['images']) > 0:
 
                 used_keys =  [image['image_key'] for image in user['images']]

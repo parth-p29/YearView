@@ -72,7 +72,7 @@ class DatabaseTests(unittest.TestCase):
 
         status_code = response.status_code
 
-        self.assertTrue(status_code, 200)
+        self.assertEqual(status_code, 200)
 
     def test_passwords_dont_match_returns_400(self):
 
@@ -91,7 +91,7 @@ class DatabaseTests(unittest.TestCase):
 
         status_code = response.status_code
         
-        self.assertTrue(status_code, 400)
+        self.assertEqual(status_code, 400)
 
         collection.delete_one({'username': 'temptester10'})
 
@@ -114,7 +114,7 @@ class DatabaseTests(unittest.TestCase):
 
         status_code = response.status_code
         
-        self.assertTrue(status_code, 400)
+        self.assertEqual(status_code, 400)
 
         collection.delete_one({'username': 'temptester10'})
 
@@ -132,7 +132,7 @@ class DatabaseTests(unittest.TestCase):
 
         status_code = response.status_code
 
-        self.assertTrue(status_code, 400)
+        self.assertEqual(status_code, 400)
 
     def test_username_doesnt_exist_returns_400(self):
 
@@ -148,7 +148,7 @@ class DatabaseTests(unittest.TestCase):
 
         status_code = response.status_code
 
-        self.assertTrue(status_code, 400)
+        self.assertEqual(status_code, 400)
 
     def test_user_login_returns_200(self):
 
@@ -165,7 +165,9 @@ class DatabaseTests(unittest.TestCase):
 
         status_code = response.status_code
 
-        self.assertTrue(status_code, 200)
+        self.assertEqual(status_code, 200)
+
+        collection.delete_one({'username': 'tester12345'})
 
 if __name__ == '__main__':
     
