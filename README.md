@@ -31,11 +31,11 @@ Have you ever looked back and thought damn New Years was just last week, but you
 |/check   | Once user enters login credentials, they get tested with the data in Mongo to ensure the correct person is accessing this account|
 |/user    | Once user is successfully logged in, they will be able to use all features of app and upload pictures|
 |/user/add-image| Endpoint where user can upload a picture and assign values to it such as: description, category etc.|
-|/user/[image-key]| Retrieves an image based on the key to display to the user |
+|/user/[image-key]| Retrieves an image from the DB based on the key |
 |/user/month/[month-name] | User can see all the pictures they added in a certain month |
 |/user/image/info/[image-key] | User can see the information about a specific image such as: description, category and the date it was added |
-|/user/image/delete/[image-key]| Deletes an image corresponding to its specific key |
-|/user/filter/[image_filter] | Switches the category of the filter |
+|/user/image/delete/[image-key]| Deletes an image from the DB corresponding to its specific key |
+|/user/filter/[image_filter] | Switches the category of the filter, allowing user to customize which images are shown |
 |/signout | Signs the user out of the app |
 
 ## Tools
