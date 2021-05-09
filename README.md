@@ -15,12 +15,12 @@ Have you ever looked back and thought damn New Years was just last week, but you
 
 ## Features
 
-- Add pictures 1 by 1 or in bulk with multiple file formats
+- Add pictures 1 by 1 or in bulk, allowing different image formats such as png or jpg
 - Delete pictures
 - Search/filter pictures by common characteristics
 - Securly upload/delete pictures
 - A month view that allows you to see the pictures you added in each month
-- Secure Login/Account Creation mechanism
+- Secure Login/Account Creation mechanism (only you can see your pictures)
 
 ## Endpoints
 
@@ -63,9 +63,42 @@ Have you ever looked back and thought damn New Years was just last week, but you
 5. Start the app by running "flask run" and go to [localhost:5000](http://localhost:5000/) into your browser
 6. Enjoy! 
 
-## Usage (Example Pictures)
+## Usage (Examples)
 
-![yvlanding](https://user-images.githubusercontent.com/69891859/117562329-26de6e00-b06c-11eb-80bc-069759a6e7bb.png)
+This is a simple mechanism for creating an account and logging in:
+
+- Passwords are 64-bit encrpyted
+- Many edge cases are considered such as if the confirm password doesn't match the entered password, if the username is already taken, if a wrong password is entered, etc.
+
+![Yearview (1)](https://user-images.githubusercontent.com/69891859/117579267-1ce65a80-b0c0-11eb-8c1a-c69c48dcb247.gif)
+
+This is how a user can upload pictures and view the certain pictures they added in a specific month
+
+- Each image is connected to a secure key, ensuring safe image upload and retrieval
+- Images can be uploaded in bulk thus, saving time when having to save large amounts of pictures
+- Users can look back upon the months and see what they did in each one to retain fond memories
+- The color of the month gets brighter depending on the amount of images uploaded
+
+![Yearview (3)](https://user-images.githubusercontent.com/69891859/117579560-700cdd00-b0c1-11eb-8517-2a553bea605a.gif)
+
+Users can also filter images based on the category they gave them
+
+![Yearview (4)](https://user-images.githubusercontent.com/69891859/117579834-c0386f00-b0c2-11eb-890e-d12401626745.gif)
+
+Clicking on an image will allow you to see it's information such as: description, category and the day it was added. You will also be able to delete the image from the repository
+
+![Yearview (5)](https://user-images.githubusercontent.com/69891859/117580020-ce3abf80-b0c3-11eb-975f-65807c6ab53d.gif)
+
+## Testing/Security
+
+Unit tests are contained within the app_tests.py and monthblock_tests.py files and for security as mentioned before, all passwords, images and delete operations are encrypted  allowing full saftey to anyone who may be in concern.
+
+
+
+
+
+
+
 
 
 
