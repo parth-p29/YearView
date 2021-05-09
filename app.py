@@ -30,10 +30,10 @@ def signup():
         username = request.form['username']
         name = request.form['name']
 
-        if password != request.form['confirm pass']:
+        if password != request.form['confirm_pass']:
 
             flash("Passwords don't match.")
-            return redirect(url_for('signup'))
+            return redirect(url_for('signup')), 400
 
         if collection.find_one(
             {
@@ -42,7 +42,7 @@ def signup():
         ):
 
             flash("Username already exists, please try another one")
-            return redirect(url_for('signup'))
+            return redirect(url_for('signup')), 400
 
         else:
 
@@ -65,7 +65,7 @@ def signup():
         flash("Account Created!")
         return redirect(url_for('login'))
 
-    return render_template('signup.html', form_text="Create Account", button_text="Create", action='/signup')
+    return render_template('signup.html', form_text="Create Account", button_text="Create", action='/signup'), 200
 
 @app.route('/check', methods=["POST"])
 def check():
@@ -91,17 +91,17 @@ def check():
             session['filter'] = "All"
             session['month_filter'] = "All"
 
-            return redirect(url_for('user'))
+            return redirect(url_for('user')), 200
 
         else:
 
             flash("Incorrect Password")
-            return redirect(url_for('login'))
+            return redirect(url_for('login')), 400
 
     else:
 
         flash("Username not found")
-        return redirect(url_for('login'))
+        return redirect(url_for('login')), 400
 
 @app.route('/user')
 def user():
@@ -110,13 +110,13 @@ def user():
     if 'name' not in session:
 
         flash("Please login or create an account.")
-        return redirect(url_for('login'))
+        return redirect(url_for('login')), 400
 
     user = collection.find_one({"username": session.get('username')})
     curr_date = datetime.today().strftime('%Y-%m-%d')
 
     #getting the images the user added today
-    today_image_keys = [image['image_key'] for image in user['images'] if image['day'] == curr_date and session.get('filter') in image['image_category'] ]
+    today_image_keys = [image['image_key'] for image in user['images'] if image['day'] == curr_date and session.get('filter') in image['image_category']]
     today_images = [url_for('file', filename=key) for key in today_image_keys]
 
     month_image_count = {
@@ -142,7 +142,7 @@ def user():
 
     blocks = [MonthBlock(month, month_image_count[month]) for month in list(month_image_count.keys())]
 
-    return render_template('main.html', name=session.get('name'), images=today_images, image_keys=today_image_keys, blocks=blocks, zip=zip)
+    return render_template('main.html', name=session.get('name'), images=today_images, image_keys=today_image_keys, blocks=blocks, zip=zip), 200
 
 @app.route('/user/month/<month>')
 def year(month):
@@ -187,7 +187,7 @@ def image_info(key):
     description = image_config['image_description']
     category = image_config['image_category'][1]
 
-    return render_template('info.html', key=key, name=session.get('name'), image=image_file, day=day_added, desc=description, category=category), 201
+    return render_template('info.html', key=key, name=session.get('name'), image=image_file, day=day_added, desc=description, category=category)
 
 @app.route('/user/image/delete/<key>')
 def delete_image(key):
