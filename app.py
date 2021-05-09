@@ -88,7 +88,7 @@ def check():
             session['filter'] = "All"
             session['month_filter'] = "All"
 
-            return redirect(url_for('user')), 200
+            return redirect(url_for('user'))
 
         else:
 
