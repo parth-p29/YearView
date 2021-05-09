@@ -5,7 +5,7 @@
 
 You can check out a full demo of the project [here](https://www.youtube.com/watch?v=iAI6MHgDDDA)
 
-Or go [here](https://www.youtube.com/watch?v=2wQqpM33VCY) if you want to save a few minutes of cringe...
+Or go [here](https://www.youtube.com/watch?v=2wQqpM33VCY) if you want to save a few minutes...
 
 ## What is it/Inspiration
 
@@ -55,7 +55,7 @@ This is a simple mechanism for creating an account and logging in:
 
 This is how a user can upload pictures and view the certain pictures they added in a specific month
 
-- Each image is connected to a secure key, ensuring safe image upload and retrieval
+- Each image is connected to a secure key, ensuring safe image upload, retrieval and deletion
 - Images can be uploaded in bulk thus, saving time when having to save large amounts of pictures
 - Users can look back upon the months and see what they did in each one to retain fond memories
 - The color of the month gets brighter depending on the amount of images uploaded
@@ -85,12 +85,12 @@ Clicking on an image will allow you to see it's information such as: description
 
         app.config['MONGO_URI'] = 'YOUR CONNECTION STRING + &ssl=true&ssl_cert_reqs=CERT_NONE'
 
-5. Start the app by running "flask run" and go to [localhost:5000](http://localhost:5000/) into your browser
+5. Start the app by running "flask run" and go to [localhost:5000](http://localhost:5000/) on your browser
 6. Enjoy! 
 
 ## Testing/Security
 
-Unit tests are contained within the app_tests.py and monthblock_tests.py files and for security as mentioned before, all passwords, images and delete operations are encrypted  allowing full saftey to anyone who may be in concern.
+Unit tests are contained within the app_tests.py and monthblock_tests.py files and for security as mentioned before, all passwords, image upload and delete operations are encrypted allowing full saftey to anyone who may be in concern.
 
 ## Author
 
