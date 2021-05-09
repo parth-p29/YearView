@@ -38,6 +38,41 @@ Have you ever looked back and thought damn New Years was just last week, but you
 |/user/filter/[image_filter] | Switches the category of the filter |
 |/signout | Signs the user out of the app |
 
+## Tools
+
+- Python (Server)
+- Flask (Server)
+- MongoDB (Server)
+- HTML/CSS/JS (Client)
+
+## Installation
+
+1. Git clone this repo onto your local (i.e copy the following into your command prompt)
+
+        git clone https://github.com/parth-p29/Shopify-Fall-2021-Backend-Dev-Challenge.git
+
+2. Run the following to install all dependencies:
+
+        pip install -r requirements.txt
+        
+3. Create an account on [MongoDB](https://www.mongodb.com/try) and make a new DB and copy the Mongo Connection String
+4. Traverse to app.py and place the connection you got into here:
+
+        app.config['MONGO_URI'] = 'YOUR CONNECTION STRING + &ssl=true&ssl_cert_reqs=CERT_NONE'
+
+5. Start the app by running "flask run" and go to [localhost:5000](http://localhost:5000/) into your browser
+6. Enjoy! 
+
+## Usage (Example Pictures)
+
+![yvlanding](https://user-images.githubusercontent.com/69891859/117562329-26de6e00-b06c-11eb-80bc-069759a6e7bb.png)
+
+
+
+
+
+
+
 
 
 
