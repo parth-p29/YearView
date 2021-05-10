@@ -6,9 +6,9 @@ You can check out a better quality demo of YearView [here](https://www.youtube.c
 
 ## What is it/Inspiration
 
-YearView is a safe photo storage tool that lets you keep track of your pictures and reflect on the memories you've made over the course of the year.
+YearView is a safe photo storage tool that lets you keep track of your pictures and reflect on the memories you've made over the course of a year.
 
-Have you ever looked back and said to yourself, "Damn, New Years was just last week," just to wake up and realise it's already May?! What happened in between?? Through YearView, you'll be able to see what you've done over the months to know only how far you've achieved!
+Have you ever looked back and said to yourself, "Damn, New Years was just last week," just to wake up and realise it's already May?! What happened in between?? Through YearView, you'll be able to see what you've done over the months and look back to uncover all that you have accomplished.
 
 ## Features
 
