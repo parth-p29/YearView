@@ -14,6 +14,7 @@ Have you ever looked back and said to yourself, "Damn, New Years was just last w
 
 - Add images one by one or in bulk, with various file formats such as png and jpg
 - Delete pictures
+- Prevents wrong file format from being added
 - Search/filter pictures by common characteristics
 - Securly upload/delete pictures
 - A month view that allows you to see all of the photos you've uploaded in each month
