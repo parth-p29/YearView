@@ -1,5 +1,4 @@
-# YearView (Shopify Fall 2021 Backend Dev Challenge)
-
+# YearView
 https://user-images.githubusercontent.com/69891859/117583373-cb949600-b0d4-11eb-9e28-2572129c12cf.mp4
 
 You can check out a better quality demo of YearView [here](https://www.youtube.com/watch?v=2wQqpM33VCY)
